@@ -3,7 +3,10 @@
 # Update system
 dnf update
 # installing packages
+dnf install -y dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+dnf module enable php:remi-7.4
 dnf install -y httpd mariadb-server mariadb php php-common php-pecl-apcu php-cli php-pear php-pdo php-mysqlnd php-pgsql php-gd php-mbstring php-xml
+
 # making mysql secureTM
 systemctl start mariadb
 mysql -e "DELETE FROM mysql.user WHERE User='';"
@@ -22,13 +25,34 @@ chmod 770 -R /var/www/moodledata
 chown apache:apache -R /var/www/moodledata
 cp /var/www/moodle/config-dist.php /var/www/moodle/config.php
 
+cat >/etc/httpd/conf.d/moodle.conf <<EOL
+<VirtualHost *:80>
+ ServerName moodle.ijselu.local
+ DocumentRoot /var/www/moodle
+ DirectoryIndex index.php
+<Directory /var/www/moodle/>
+ Options Indexes FollowSymLinks MultiViews
+ AllowOverride All
+ Order allow,deny
+ allow from all
+</Directory>
+ ErrorLog /var/log/httpd/moodle_error.log
+ CustomLog /var/log/httpd/moodle_access.log combined
+</VirtualHost>
+EOL
+
+
 # edit config to our SQL configuration
 sed -i 's\$CFG->dbtype    = '\''pgsql'\'';\$CFG->dbtype    = '\''mariadb'\'';\' /var/www/moodle/config.php
 sed -i 's\$CFG->dbname    = '\''moodle'\'';\$CFG->dbname    = '\''moodledb'\'';\' /var/www/moodle/config.php
 sed -i 's\$CFG->dbuser    = '\''username'\'';\$CFG->dbuser    = '\''moodleadmin'\'';\' /var/www/moodle/config.php
 sed -i 's\$CFG->dbpass    = '\''password'\'';\$CFG->dbpass    = '\''herpderp'\'';\' /var/www/moodle/config.php
-sed -i 's#$CFG->wwwroot   = '\''http://example.com/moodle'\'';#$CFG->wwwroot   = '\''http://ijselu.local/moodle'\'';#' /var/www/moodle/config.php
+sed -i 's#$CFG->wwwroot   = '\''http://example.com/moodle'\'';#$CFG->wwwroot   = '\''http://moodle.ijselu.local'\'';#' /var/www/moodle/config.php
 sed -i 's#$CFG->dataroot  = '\''\/home\/example\/moodledata'\'';#$CFG->dataroot  = '\''\/var\/www\/moodledata'\'';#' /var/www/moodle/config.php
+
+# selinux rules
+setsebool httpd_can_network_connect true
+setsebool httpd_can_network_connect_db true
 
 # firewall rules
 firewall-cmd --add-port=80/tcp --zone=public --permanent
