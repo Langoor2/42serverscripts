@@ -4,8 +4,8 @@
 dnf update
 
 # disable Selinux
-
 setenforce 0
+sed -i 's/SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
 
 # installing packages
 dnf install -y dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
@@ -58,6 +58,7 @@ sed -i 's#$CFG->dataroot  = '\''\/home\/example\/moodledata'\'';#$CFG->dataroot 
 systemctl restart httpd
 
 # selinux rules
+# don' t need rules if you don't have SeLinux :^)
 #setsebool httpd_can_network_connect true
 #setsebool httpd_can_network_connect_db true
 
