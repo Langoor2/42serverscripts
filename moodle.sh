@@ -2,10 +2,15 @@
 
 # Update system
 dnf update
+
+# disable Selinux
+
+setenforce 0
+
 # installing packages
 dnf install -y dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
-dnf module enable php:remi-7.4
-dnf install -y httpd mariadb-server mariadb php php-common php-pecl-apcu php-cli php-pear php-pdo php-mysqlnd php-pgsql php-gd php-mbstring php-xml
+dnf module enable -y php:remi-7.4
+dnf install -y httpd mariadb-server mariadb php php-common php-pecl-apcu php-cli php-pear php-pdo php-mysqlnd php-pgsql php-gd php-mbstring php-xml php-pecl-zip php-intl php-soap php-xmlrpc
 
 # making mysql secureTM
 systemctl start mariadb
@@ -50,11 +55,17 @@ sed -i 's\$CFG->dbpass    = '\''password'\'';\$CFG->dbpass    = '\''herpderp'\''
 sed -i 's#$CFG->wwwroot   = '\''http://example.com/moodle'\'';#$CFG->wwwroot   = '\''http://moodle.ijselu.local'\'';#' /var/www/moodle/config.php
 sed -i 's#$CFG->dataroot  = '\''\/home\/example\/moodledata'\'';#$CFG->dataroot  = '\''\/var\/www\/moodledata'\'';#' /var/www/moodle/config.php
 
+systemctl restart httpd
+
 # selinux rules
-setsebool httpd_can_network_connect true
-setsebool httpd_can_network_connect_db true
+#setsebool httpd_can_network_connect true
+#setsebool httpd_can_network_connect_db true
 
 # firewall rules
 firewall-cmd --add-port=80/tcp --zone=public --permanent
 firewall-cmd --add-port=443/tcp --zone=public --permanent
 firewall-cmd --reload
+
+# enable at boot
+systemctl enable httpd
+systemctl enable mariadb
