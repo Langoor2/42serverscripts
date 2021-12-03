@@ -1,0 +1,191 @@
+erm_sw_1#show run
+Building configuration...
+
+Current configuration : 4343 bytes
+!
+! Last configuration change at 02:44:36 UTC Tue Mar 2 1993
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname erm_sw_1
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$u64Z$syGinDYtu6w.0cM9TfzRX/
+!
+username admin secret 5 $1$.NW1$dqIjFQMYWfw7RjnRsXVVK.
+no aaa new-model
+system mtu routing 1500
+!
+!
+no ip domain-lookup
+ip domain-name ijselu.local
+!
+!
+crypto pki trustpoint TP-self-signed-2808327936
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2808327936
+ revocation-check none
+ rsakeypair TP-self-signed-2808327936
+!
+!
+crypto pki certificate chain TP-self-signed-2808327936
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 32383038 33323739 3336301E 170D3933 30333031 30303031
+  30315A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 38303833
+  32373933 3630819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  8100AF4D 541E847F 36209087 5987F6D3 75C970D3 E9A3B2F6 18F6AA45 36F5953D
+  502E25B6 B7ACC7B9 5C8DD5DD 2BC08E2B CE33D15D BE863B5D 20F4CD89 F8796711
+  29FD765F AF0DC087 940E4D7D AB521A14 7896E6A9 7BD9D74F BDABF735 46A486A7
+  AC890D5E 6AAF8B52 B7B392B9 E28B7805 891AB1E6 12F441D8 AE8D10FC 4D46CB34
+  482F0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603
+  551D2304 18301680 1455EF6A 28275CFE 34980E01 53FC73B1 75CEF85B 9B301D06
+  03551D0E 04160414 55EF6A28 275CFE34 980E0153 FC73B175 CEF85B9B 300D0609
+  2A864886 F70D0101 05050003 81810075 C8C3669A CB13ACFB 7E562FD7 06AB2AC0
+  F484A7F4 33FF1418 CB885268 86D7C160 E547FB6E E7434319 6D5B9536 F51B1A2C
+  BEC34596 6D283C48 E457D35B 3B0D6607 E2E707A0 D8A01504 BDA3E1CA 9298FFC3
+  8F756A96 C57736E4 12EE65FC 8D8468D4 35D47EB4 69F5C632 2838608E 70387327
+  36308E7C E316F419 A090C93F 165A30
+        quit
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/2
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/3
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/4
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/5
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/6
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/7
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/8
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/9
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/10
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/11
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/12
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/13
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/14
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/15
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/16
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/17
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/18
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/19
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/20
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/21
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/22
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/23
+ switchport access vlan 5
+ switchport mode access
+!
+interface FastEthernet0/24
+ switchport access vlan 5
+ switchport mode access
+!
+interface GigabitEthernet0/1
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ ip address 10.0.2.1 255.255.255.240
+!
+ip http server
+ip http secure-server
+!
+!
+line con 0
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login
+!
+end
+
+erm_sw_1#
