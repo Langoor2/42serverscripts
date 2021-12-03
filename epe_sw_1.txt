@@ -1,0 +1,204 @@
+epe_sw_1#show run
+Building configuration...
+
+Current configuration : 4489 bytes
+!
+! Last configuration change at 00:29:19 UTC Mon Mar 1 1993
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname epe_sw_1
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$qag1$QMuDjp.wB0NUOpC9N7zVg0
+!
+username admin secret 5 $1$b8w4$MVigSDEY0v29iO6jTjAp40
+no aaa new-model
+system mtu routing 1500
+vtp mode transparent
+!
+!
+no ip domain-lookup
+ip domain-name ijselu.local
+!
+!
+crypto pki trustpoint TP-self-signed-2808330624
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2808330624
+ revocation-check none
+ rsakeypair TP-self-signed-2808330624
+!
+!
+crypto pki certificate chain TP-self-signed-2808330624
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 32383038 33333036 3234301E 170D3933 30333031 30303031
+  30325A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 38303833
+  33303632 3430819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  81009576 F7289BEA 876BB56A F3BB05AC 60002100 4376D0C8 74EE4A91 5E22D393
+  9EAF92F1 8591B13C 1CDDB001 87FE638A 615E6A04 9B1D83A6 235231CE 97ABA427
+  C040D2F3 E5BF3DB6 59E03C69 6AC94C39 15847F67 9C71A0EA 289A4044 AD8A7A7A
+  D7E01FD3 94789E9E B1187E94 C5F3946D 8BE09239 2F39480C 7450B480 62C9B781
+  D1190203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603
+  551D2304 18301680 141433EE 3ABB0050 9F58C5FF A20367B0 68B16F52 48301D06
+  03551D0E 04160414 1433EE3A BB00509F 58C5FFA2 0367B068 B16F5248 300D0609
+  2A864886 F70D0101 05050003 81810042 BCD9587B 20F335EE 9DEE4843 B50EB35A
+  96C4FBF5 BB85E994 8082A711 CBDE483A DA2DB7D1 BEFEEA24 2B343784 D0B30C72
+  21140A96 03F60CB9 1855C71B 301A0DCB 999AEAE9 788414FD 5E565678 70336ED0
+  D257907B 3A340AA6 018D390B E2CF2454 93484A8F 805169D1 EF4B5F1D 7D9641F9
+  70D1AA61 AD160AFA 9B51D6F8 6E4B91
+        quit
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 4
+!
+vlan 10
+ name Vlan_Medewerkers
+!
+vlan 50
+ name Gasten_Vlan
+!
+vlan 99
+ name Administration_Vlan
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/2
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/3
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/4
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/5
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/6
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/7
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/8
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/9
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/10
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/11
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/12
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/13
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/14
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/15
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/16
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/17
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/18
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/19
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/20
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/21
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/22
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/23
+ switchport access vlan 4
+ switchport mode access
+!
+interface FastEthernet0/24
+ switchport access vlan 4
+ switchport mode access
+!
+interface GigabitEthernet0/1
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ ip address 10.0.1.1 255.255.255.240
+!
+ip http server
+ip http secure-server
+!
+!
+line con 0
+line vty 0 4
+ password cisco06
+ login local
+ transport input ssh
+line vty 5 15
+ login
+!
+end
+
+epe_sw_1#

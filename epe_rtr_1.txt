@@ -1,0 +1,141 @@
+epe_rtr_1#show run
+Building configuration...
+
+Current configuration : 1918 bytes
+!
+! Last configuration change at 10:29:36 UTC Thu Dec 2 2021 by admin
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname epe_rtr_1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$xaGy$gddNHrdc/7WV/CqB70W0W0
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip dhcp excluded-address 172.16.10.1 172.16.10.20
+!
+ip dhcp pool epe
+ network 172.16.10.0 255.255.255.0
+ default-router 172.16.10.1
+ dns-server 10.100.0.3
+!
+!
+!
+ip domain name ijsel.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+cts logging verbose
+!
+!
+license udi pid CISCO1941/K9 sn FCZ2048B086
+license boot module c1900 technology-package securityk9
+!
+!
+username admin secret 5 $1$2zsq$aqMCYWlU5bLDb5vPXDyAK1
+!
+redundancy
+!
+!
+!
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 10.0.6.6 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.1
+ encapsulation dot1Q 1 native
+ ip address 10.0.1.2 255.255.255.240
+!
+interface GigabitEthernet0/1.4
+ encapsulation dot1Q 4
+ ip address 172.16.10.1 255.255.255.0
+!
+interface Serial0/0/0
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/0/1
+ ip address 10.0.6.1 255.255.255.252
+!
+router ospf 10
+ network 10.0.0.0 0.0.0.255 area 0
+ network 10.0.1.0 0.0.0.15 area 0
+ network 10.0.2.0 0.0.0.15 area 0
+ network 10.0.6.0 0.0.0.3 area 0
+ network 10.0.6.4 0.0.0.3 area 0
+ network 172.16.10.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output none
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end
+
+epe_rtr_1#
