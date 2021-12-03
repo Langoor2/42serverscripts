@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Update system
-dnf update
+dnf update -y
 
 # disable Selinux
 setenforce 0
