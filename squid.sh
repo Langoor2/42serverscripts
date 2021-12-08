@@ -3,7 +3,7 @@
 dnf update -y
 
 # Install Squid
-dnf install -y squid
+dnf -y install squid
 
 # Write config file changes
 sed -i "18i acl blockedsites dstdomain \"/etc/squid/restricted-sites.squid\"" /etc/squid/squid.conf

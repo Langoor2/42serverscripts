@@ -8,9 +8,9 @@ setenforce 0
 sed -i 's/SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
 
 # installing packages
-dnf install -y dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+dnf -y install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
 dnf module enable -y php:remi-7.4
-dnf install -y httpd mariadb-server mariadb php php-common php-pecl-apcu php-cli php-pear php-pdo php-mysqlnd php-pgsql php-gd php-mbstring php-xml php-pecl-zip php-intl php-soap php-xmlrpc
+dnf -y install httpd mariadb-server mariadb php php-common php-pecl-apcu php-cli php-pear php-pdo php-mysqlnd php-pgsql php-gd php-mbstring php-xml php-pecl-zip php-intl php-soap php-xmlrpc
 
 # making mysql secureTM
 systemctl start mariadb

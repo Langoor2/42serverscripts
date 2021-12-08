@@ -3,7 +3,7 @@
 dnf update -y
 
 # Install NFS
-dnf install -y nfs-utils
+dnf -y install nfs-utils
 
 # Create the folder to host the files
 mkdir -p /srv/homefolders
