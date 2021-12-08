@@ -1,6 +1,6 @@
 #!/bin/bash
 # Set DNS, IP, Proxy, NTP
-
+# IP and DNS is set by DHCP.
 
 
 # Update system
