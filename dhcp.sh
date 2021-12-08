@@ -4,7 +4,7 @@
 dnf update -y
 
 # Install packages
-dnf install –y dhcp-server
+dnf -y install dhcp-server
 
 cat >/etc/dhcp/dhcpd.conf  <<EOL
 default-lease-time 600;
