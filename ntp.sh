@@ -7,9 +7,8 @@ dnf update -y
 dnf -y install chrony
 
 # Write the config file to allow servers to access the server
-cat >/etc/chrony.conf <<EOL
-allow 10.100.0.0/16
-EOL
+echo 'allow 10.100.0.0/16' >> /etc/chrony.conf
+
 
 # Allow access through the firewall
 firewall-cmd --permanent --add-service=ntp
