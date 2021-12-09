@@ -16,7 +16,6 @@ subnet 10.100.0.0 netmask 255.255.0.0 {
   option routers 10.100.0.1;
   option subnet-mask 255.255.0.0;
   option domain-name-servers 10.100.0.3;
-
 }
 EOL
 
