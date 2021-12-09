@@ -1,3 +1,7 @@
+#Uitschakelen Selinux
+setenforce 0
+sed -i 's/SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
+
 #Installeren dnf
 dnf install wget -y
 
