@@ -1,5 +1,5 @@
 #Installeren dnf
-sudo dnf install wget -y
+dnf install wget -y
 
 
 #Splunk configuratie
@@ -17,8 +17,6 @@ tar xvzf splunk-8.1.0-f57c09e87251-Linux-x86_64.tgz -C /opt
 
 ./splunk start --accept-license --answer-yes --no-prompt --seed-passwd Cisco06!
 
-su
-<wachtwoord>
 sudo ./splunk enable boot-start
 
 #Splunk configuratie Firewall
