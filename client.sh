@@ -15,7 +15,7 @@ sed -i 's/pool/#pool/' /etc/ntp.conf
 echo 'server 10.100.0.10' >> /etc/ntp.conf
 
 # Join domain
-realm join treecko.ijselu.local
+echo 'cisco06' | realm join -U waltervl treecko.ijselu.local
 
 # Enable home dir creation
 pam-auth-update --enable mkhomedir
@@ -24,4 +24,4 @@ pam-auth-update --enable mkhomedir
 sed -i 's@# disable-user-list=true@disable-user-list=true@g' /etc/gdm3/greeter.dconf-defaults
 
 # Mount /home on NFS
-10.100.0.9:/srv/homefolders /home nfs defaults 0 0 >> /etc/fstab
+echo '10.100.0.9:/srv/homefolders /home nfs defaults 0 0' >> /etc/fstab
