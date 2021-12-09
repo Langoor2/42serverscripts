@@ -1,10 +1,5 @@
 #!/bin/bash
 
-
-#Uitschakelen Selinux
-setenforce 0
-sed -i 's/SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
-
 #Installeren dnf
 dnf install wget -y
 
@@ -29,6 +24,3 @@ firewall-cmd --zone=public --permanent --add-port 8080/tcp
 firewall-cmd --zone=public --permanent --add-port 8000/tcp
 firewall-cmd --zone=public --permanent --add-port 5514/udp
 firewall-cmd --reload
-
-#Server opnieuw starten
-reboot
