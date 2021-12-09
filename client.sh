@@ -9,7 +9,7 @@ sed -i 's#security.ubuntu.com#old-releases.ubuntu.com#' /etc/apt/sources.list
 # Update system
 
 apt update -y && apt upgrade -y
-apt -y install firefox thunderbird p7zip libreoffice sssd-ad sssd-tools realmd adcli ntp
+apt -y install firefox thunderbird p7zip libreoffice sssd-ad sssd-tools realmd adcli ntp nfs-common
 
 sed -i 's/pool/#pool/' /etc/ntp.conf
 echo 'server 10.100.0.10' >> /etc/ntp.conf
