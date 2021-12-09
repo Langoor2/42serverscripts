@@ -12,3 +12,6 @@ dnf install wget -y
 #Splunk configuratie
 groupadd splunk
 useradd -d /opt/splunk -m -g splunk splunk
+su - splunk
+id
+getconf LONG_BIT
