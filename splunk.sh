@@ -15,6 +15,17 @@ wget https://download.splunk.com/products/splunk/releases/8.1.0/linux/splunk-8.1
 #Uitpakken splunk
 tar xvzf splunk-8.1.0-f57c09e87251-Linux-x86_64.tgz -C /opt
 
+cd /
+ls
+cd opt
+ls
+cd splunk
+ls
+chown -R splunk: /opt/splunk/
+ls
+cd /
+cd opt/splunk/bin
+ls
 ./splunk start --accept-license --answer-yes --no-prompt --seed-passwd Cisco06!
 
 sudo ./splunk enable boot-start
