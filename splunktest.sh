@@ -32,3 +32,14 @@ ls
 cd /
 cd opt/splunk/bin
 ls
+
+./splunk start --accept-license --answer-yes --no-prompt --seed-passwd Cisco06!
+
+sudo ./splunk enable boot-start
+
+#Splunk configuratie Firewall
+
+firewall-cmd --zone=public --permanent --add-port 8080/tcp
+firewall-cmd --zone=public --permanent --add-port 8000/tcp
+firewall-cmd --zone=public --permanent --add-port 5514/udp
+firewall-cmd --reload
