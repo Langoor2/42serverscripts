@@ -5,7 +5,7 @@ sed -i 's#security.ubuntu.com#old-releases.ubuntu.com#' /etc/apt/sources.list
 
 # Update system
 apt update -y && apt upgrade -y
-apt -y install firefox thunderbird p7zip libreoffice sssd-ad sssd-tools realmd adcli ntp nfs-common
+apt -y install firefox thunderbird p7zip libreoffice sssd-ad sssd-tools realmd adcli ntp nfs-common hxtools libpam-mount
 
 # Set DNS, IP, Proxy, NTP
 # IP and DNS is set by DHCP.
@@ -28,5 +28,7 @@ pam-auth-update --enable mkhomedir
 # Disable user list in gnome display manager
 sed -i 's@# disable-user-list=true@disable-user-list=true@g' /etc/gdm3/greeter.dconf-defaults
 
-# Mount /home on NFS
-echo '10.100.0.9:/srv/homefolders /home nfs defaults 0 0' >> /etc/fstab
+# Set NFS share defenitions
+
+sed -i '17i <volume user="*" fstype="nfs" server="snorlax.ijselu.local" path="/srv/homefolders/" mountpoint="/home/" options="soft" />' /etc/security/pam_mount.conf.xml
+sed -i 's@mkhomedir.so@mkhomedir.so umask=0077 skel=/etc/skel@' /etc/pam.d/common-session
