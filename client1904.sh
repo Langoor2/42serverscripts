@@ -29,6 +29,33 @@ pam-auth-update --enable mkhomedir
 sed -i 's@# disable-user-list=true@disable-user-list=true@g' /etc/gdm3/greeter.dconf-defaults
 
 # Set NFS share defenitions
-
 sed -i '17i <volume user="*" fstype="nfs" server="snorlax.ijselu.local" path="/srv/homefolders/" mountpoint="/home/" options="soft" />' /etc/security/pam_mount.conf.xml
 sed -i 's@mkhomedir.so@mkhomedir.so umask=0077 skel=/etc/skel@' /etc/pam.d/common-session
+
+#Download Universal Forwarder
+wget https://download.splunk.com/products/universalforwarder/releases/8.1.0/linux/splunkforwarder-8.1.0-f57c09e87251-Linux-x86_64.tgz
+
+#Extract
+tar xvzf splunkforwarder-8.1.0-f57c09e87251-Linux-x86_64.tgz -C /opt
+
+#Configure Forwarder
+./opt/splunkforwarder/bin/splunk start --accept-license --answer-yes --no-prompt --seed-passwd Cisco06! enable boot-start
+./opt/splunkforwarder/bin/splunk enable deploy-client
+./opt/splunkforwarder/bin/splunk set deploy-poll "10.100.0.6:8000"
+
+#Firewall Config
+ufw enable
+ufw allow 8080
+ufw allow 8000
+ufw allow 5514
+ufw allow 9997
+ufw reload
+
+#Splunk add monitoring logs
+./opt/splunkforwarder/bin/splunk add forward-server 10.100.0.6:9997
+./opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log
+./opt/splunkforwarder/bin/splunk add monitor /var/log/kern.log
+./opt/splunkforwarder/bin/splunk add monitor /var/log/lastlog
+
+#Splunk Services Restart
+./opt/splunkforwarder/bin/splunk restart
